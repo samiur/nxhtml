@@ -2975,7 +2975,7 @@ most major modes."
     ;;font-lock-mode-major-mode
     font-lock-set-defaults
     font-lock-syntax-table
-    font-lock-beginning-of-syntax-function
+    syntax-begin-function
     fontification-functions
     jit-lock-context-unfontify-pos
     jit-lock-mode
@@ -3289,10 +3289,10 @@ The main reasons for doing it this way is:
                ;; Syntactic Font Lock
                (list 'font-lock-syntax-table (custom-quote font-lock-syntax-table)) ;; See nXhtml bug 400415
                (if (version< emacs-version "23.3")
-                   (list 'font-lock-beginning-of-syntax-function
-                         ;;(msgtrc "font-lock-beginning-of-syntax-function A")
-                         (custom-quote (symbol-value 'font-lock-beginning-of-syntax-function)))
-                 (list 'obsolete-font-lock-beginning-of-syntax-function nil))
+                   (list 'syntax-begin-function
+                         ;;(msgtrc "syntax-begin-function A")
+                         (custom-quote (symbol-value 'syntax-begin-function)))
+                 (list 'obsolete-syntax-begin-function nil))
                (list 'font-lock-syntactic-face-function (custom-quote font-lock-syntactic-face-function))
 
                ;; Other Font Lock Variables
@@ -4480,8 +4480,8 @@ after this in the properties below of the now created chunk:
                          syntax-begin-function)
                      (and (not syntax-begin-function)
                           (version< emacs-version "23.3")
-                          ;; (progn (msgtrc "font-lock-beginning-of-syntax-function B") t)
-                          font-lock-beginning-of-syntax-function)))))
+                          ;; (progn (msgtrc "syntax-begin-function B") t)
+                          syntax-begin-function)))))
           (mumamo-msgfntfy "Got syntax-begin-function, modified=%s" (buffer-modified-p))
           (overlay-put this-chunk 'syntax-begin-function syntax-begin-function))
         )
@@ -6363,7 +6363,7 @@ non-nil."
     end-of-defun-function
 
     fill-paragraph-function
-    font-lock-beginning-of-syntax-function
+    syntax-begin-function
     font-lock-defaults
     font-lock-extend-after-change-region-function
     font-lock-extend-region-functions
